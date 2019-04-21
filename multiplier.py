@@ -12,9 +12,10 @@ def data_names(way): # функция, возвращающая массив с 
 
 
 def mul_im(im_path1, im_path2): # функция, перемножающая изображения попиксельно
-    ret, img1 = cv.threshold(cv.cvtColor(cv.imread(im_path1), cv.COLOR_BGR2GRAY),100, 255, cv.THRESH_BINARY) # чтение изображения 1
-    ret, img2 = cv.threshold(cv.cvtColor(cv.imread(im_path2), cv.COLOR_BGR2GRAY),100, 255, cv.THRESH_BINARY) # чтение изображения 2
-    out_mask = (img1 / 255) * (img2 / 255) * 255 # перемножаем изображения
+    pre = cv.cvtColor(cv.imread(im_path1), cv.COLOR_BGR2GRAY) # изначальное зелёное изображение
+    ret, img1 = cv.threshold(pre, 100, 255, cv.THRESH_BINARY) # чтение изображения 1
+    ret, img2 = cv.threshold(cv.cvtColor(cv.imread(im_path2), cv.COLOR_BGR2GRAY), 100, 255, cv.THRESH_BINARY) # чтение изображения 2
+    out_mask = (img1 / 255) * (img2 / 255) * pre # перемножаем изображения
     return out_mask
 
 
